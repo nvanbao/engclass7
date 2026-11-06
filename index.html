@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng Dụng Ôn Tập Tiếng Anh 7 - Giữa Kỳ I</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#7C3AED',
+                            pink: '#EC4899',
+                            yellow: '#F59E0B',
+                            blue: '#3B82F6',
+                            green: '#10B981',
+                            bg: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Lexend', 'sans-serif'],
+                        heading: ['Fredoka', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #F3F4F6;
+            font-size: 1.15rem; /* Larger font size */
+        }
+        h1, h2, h3, .heading-font {
+            font-family: 'Fredoka', cursive;
+        }
+        /* Custom highlight styling for text passages */
+        .highlight-yellow {
+            background-color: #FEF08A;
+            color: #854D0E;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border-bottom: 2px solid #EAB308;
+            transition: all 0.3s ease;
+        }
+        /* Scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    </style>
+</head>
+<body class="text-gray-800 min-h-screen flex flex-col">
+
+    <!-- Header Navigation -->
+    <header class="bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid font-bold fa-graduation-cap text-3xl sm:text-4xl text-yellow-300"></i>
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold tracking-wide">ENGLISH 7 PRACTICE</h1>
+                    <p class="text-xs sm:text-sm text-yellow-200 font-medium">Ôn Tập Kiểm Tra Giữa Học Kỳ I (Tương Tác)</p>
+                </div>
+            </div>
+
+            <!-- Test Switcher Tabs -->
+            <div class="flex flex-wrap gap-2" id="test-selector">
+                <button onclick="switchTest(0)" id="btn-test-0" class="px-4 py-2 rounded-xl text-base font-bold bg-white text-purple-700 shadow hover:bg-yellow-300 hover:text-purple-900 transition-all">Đề 1</button>
+                <button onclick="switchTest(1)" id="btn-test-1" class="px-4 py-2 rounded-xl text-base font-bold bg-purple-700 text-white shadow hover:bg-yellow-300 hover:text-purple-900 transition-all">Đề 2</button>
+                <button onclick="switchTest(2)" id="btn-test-2" class="px-4 py-2 rounded-xl text-base font-bold bg-purple-700 text-white shadow hover:bg-yellow-300 hover:text-purple-900 transition-all">Đề 3</button>
+                <button onclick="switchTest(3)" id="btn-test-3" class="px-4 py-2 rounded-xl text-base font-bold bg-purple-700 text-white shadow hover:bg-yellow-300 hover:text-purple-900 transition-all">Đề 4</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full">
+        
+        <!-- Test Info Header Card -->
+        <div class="bg-white rounded-2xl p-5 shadow-md border-b-4 border-purple-500 mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <span id="test-badge" class="bg-purple-100 text-purple-700 text-sm font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Đề Kiểm Tra Giữa Kỳ I</span>
+                <h2 id="test-title" class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">Đề số 1</h2>
+                <p id="test-desc" class="text-gray-600 text-base">Bao gồm Gap-Filling, Use of Language, Reading & Writing (Đã loại bỏ phần Nghe)</p>
+            </div>
+            
+            <!-- Overall Score Badge -->
+            <div class="bg-gradient-to-br from-yellow-400 to-amber-500 text-white rounded-xl px-5 py-3 text-center shadow">
+                <div class="text-xs uppercase font-bold tracking-wider opacity-90">Điểm Đề Này</div>
+                <div id="score-display" class="text-3xl font-black">0 / 0</div>
+            </div>
+        </div>
+
+        <!-- Section Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 pb-3" id="section-tabs">
+            <!-- Dynamic section buttons will be rendered here -->
+        </div>
+
+        <!-- Content Area for Questions -->
+        <div id="quiz-container" class="space-y-6">
+            <!-- Dynamic questions render here -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-6 mt-10">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="font-bold text-lg text-yellow-400">Ứng Dụng Luyện Tập Tiếng Anh 7 - Giao Diện Tương Tác Trực Quan</p>
+            <p class="text-sm text-gray-400 mt-1">Dễ học - Phản hồi tức thì - Giải thích chi tiết - Tự động tô vàng bài đọc</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Tests Data Array
+        const testsData = [
+            {
+                id: 1,
+                title: "Đề số 1 (Đề 2026-2027 THCS Nguyễn Văn Linh)",
+                subtitle: "Thời gian: 60 phút - Môn Tiếng Anh 7",
+                sections: [
+                    {
+                        name: "B. USE OF LANGUAGE",
+                        type: "mcq",
+                        instruction: "I. Circle the letter (A, B, C or D) that indicates the best answer.",
+                        questions: [
+                            {
+                                id: "t1_u1",
+                                text: "1. Choose the word that has the underlined part pronounced differently from the others: w<u>o</u>rk / d<u>o</u>ctor / l<u>e</u>sson / aw<u>a</u>y",
+                                options: ["A. work", "B. doctor", "C. lesson", "D. away"],
+                                answer: 0,
+                                explanation: "<b>work</b> được phát âm là /wɜːk/ (âm /ɜː/). Các từ còn lại phần gạch chân phát âm là /ə/ (doctor /ˈdɒktə/, lesson /ˈlesn/, away /əˈweɪ/)."
+                            },
+                            {
+                                id: "t1_u2",
+                                text: "2. Choose the word that has the underlined part pronounced differently from the others: f<u>a</u>st / f<u>oo</u>d / v<u>ie</u>w / fr<u>ui</u>t",
+                                options: ["A. fast", "B. food", "C. view", "D. fruit"],
+                                answer: 0,
+                                explanation: "<b>fast</b> phát âm là /fɑːst/ (âm /ɑː/). Các từ food /fuːd/, view /vjuː/, fruit /fruːt/ đều chứa âm /uː/."
+                            },
+                            {
+                                id: "t1_u3",
+                                text: "3. Choose the word whose underlined part is pronounced differently from the others: join<u>ed</u> / plant<u>ed</u> / water<u>ed</u> / stay<u>ed</u>",
+                                options: ["A. joined", "B. planted", "C. watered", "D. stayed"],
+                                answer: 1,
+                                explanation: "<b>planted</b> kết thúc bằng âm /t/ nên phát âm đuôi -ed là /ɪd/. Các từ còn lại phát âm đuôi -ed là /d/."
+                            },
+                            {
+                                id: "t1_u4",
+                                text: "4. Elena is interested ______ building dollhouses and making paper flowers.",
+                                options: ["A. in", "B. on", "C. at", "D. with"],
+                                answer: 0,
+                                explanation: "Cấu trúc: <b>be interested in + V-ing/N</b>: thích thú, quan tâm đến cái gì."
+                            },
+                            {
+                                id: "t1_u5",
+                                text: "5. Next month, we ______ tutor primary school children.",
+                                options: ["A. tutor", "B. tutored", "C. have tutored", "D. are going to tutor"],
+                                answer: 3,
+                                explanation: "Dấu hiệu 'Next month' chỉ tương lai hoặc kế hoạch dự định -> dùng <b>are going to tutor</b> (thì tương lai gần)."
+                            },
+                            {
+                                id: "t1_u6",
+                                text: "6. Mark ______ watches TV because he likes doing things outside.",
+                                options: ["A. always", "B. usually", "C. often", "D. seldom"],
+                                answer: 3,
+                                explanation: "Vì Mark thích các hoạt động ngoài trời nên bạn ấy <b>seldom</b> (hiếm khi) xem TV."
+                            },
+                            {
+                                id: "t1_u7",
+                                text: "7. I want to stay fit, ______ I do morning exercise every day.",
+                                options: ["A. but", "B. or", "C. so", "D. for"],
+                                answer: 2,
+                                explanation: "<b>so</b> (cho nên/vì vậy) dùng để chỉ kết quả. 'Tôi muốn giữ dáng, vì vậy tôi tập thể dục buổi sáng mỗi ngày'."
+                            },
+                            {
+                                id: "t1_u8",
+                                text: "8. You should drink plenty of water ______ sugary soft drinks.",
+                                options: ["A. because", "B. instead of", "C. but", "D. and"],
+                                answer: 1,
+                                explanation: "<b>instead of</b> (thay vì): Bạn nên uống nhiều nước thay vì nước ngọt có đường."
+                            },
+                            {
+                                id: "t1_u9",
+                                text: "9. Fruit and vegetables contain a lot of ______, which are good for your body.",
+                                options: ["A. rubbish", "B. lessons", "C. teddy bears", "D. vitamins"],
+                                answer: 3,
+                                explanation: "Rau củ và trái cây chứa nhiều <b>vitamins</b> (vitamin) rất tốt cho cơ thể."
+                            },
+                            {
+                                id: "t1_u10",
+                                text: "10. Last weekend, Phuc and his friends ______ rubbish in the local park.",
+                                options: ["A. collect", "B. collects", "C. collected", "D. collecting"],
+                                answer: 2,
+                                explanation: "Dấu hiệu 'Last weekend' (cuối tuần trước) -> chia thì Quá khứ đơn: <b>collected</b>."
+                            },
+                            {
+                                id: "t1_u11",
+                                text: "11. Our school ______ volunteer activities for five years.",
+                                options: ["A. organizes", "B. has organized", "C. organized", "D. will organize"],
+                                answer: 1,
+                                explanation: "Dấu hiệu 'for five years' (khoảng 5 năm nay) -> chia thì Hiện tại hoàn thành: <b>has organized</b>."
+                            },
+                            {
+                                id: "t1_u12",
+                                text: "12. Mai: “We also grow vegetables and give them to a nursing home.” – Lan: “______”",
+                                options: ["A. Sounds like great work!", "B. You’re welcome.", "C. It’s expensive.", "D. I don’t think so."],
+                                answer: 0,
+                                explanation: "Lời đáp phù hợp khi khen ngợi hoạt động tình nguyện ý nghĩa: 'Sounds like great work!' (Nghe có vẻ là một việc thật tuyệt vời!)."
+                            }
+                        ]
+                    },
+                    {
+                        name: "B. WORD FORM & VERBS",
+                        type: "fill_text",
+                        instruction: "II. Word Form & III. Verb Tenses",
+                        questions: [
+                            {
+                                id: "t1_wf1",
+                                text: "1. Making paper flowers is a very ______ hobby. (CREATE)",
+                                answer: "creative",
+                                explanation: "Sau trạng từ 'very' và trước danh từ 'hobby' cần một tính từ: <b>creative</b> (sáng tạo)."
+                            },
+                            {
+                                id: "t1_wf2",
+                                text: "2. Eating too much fast food is not ______ for your body. (HEALTH)",
+                                answer: "healthy",
+                                explanation: "Sau động từ 'to be' (is not) cần tính từ: <b>healthy</b> (lành mạnh, tốt cho sức khỏe)."
+                            },
+                            {
+                                id: "t1_vt1",
+                                text: "3. Last weekend, my friends and I ______ (clean) the school garden.",
+                                answer: "cleaned",
+                                explanation: "Dấu hiệu 'Last weekend' dùng thì Quá khứ đơn: <b>cleaned</b>."
+                            },
+                            {
+                                id: "t1_vt2",
+                                text: "4. Next Sunday, my class ______ (plant) trees in the park.",
+                                answer: ["will plant", "is going to plant"],
+                                explanation: "Dấu hiệu 'Next Sunday' chỉ tương lai: chấp nhận <b>will plant</b> hoặc <b>is going to plant</b>."
+                            }
+                        ]
+                    },
+                    {
+                        name: "C. READING COMPREHENSION",
+                        type: "reading",
+                        passages: [
+                            {
+                                id: "p1_1",
+                                title: "Passage 1: Healthy Lifestyle",
+                                text: "Teenagers need to live a healthy lifestyle. First, they should eat (1) ______ fresh fruit and vegetables every day. They (2) ______ eat too much fast food, (3) ______ it is not good for their health. They should also do morning exercise (4) ______ keep fit.",
+                                questions: [
+                                    {
+                                        id: "t1_r1_1",
+                                        text: "Blank (1):",
+                                        options: ["A. plenty of", "B. plenty", "C. many", "D. a few"],
+                                        answer: 0,
+                                        explanation: "Cụm từ <b>plenty of</b> + danh từ không đếm được / danh từ số nhiều: ăn nhiều hoa quả và rau tươi."
+                                    },
+                                    {
+                                        id: "t1_r1_2",
+                                        text: "Blank (2):",
+                                        options: ["A. should", "B. shouldn’t", "C. must", "D. can"],
+                                        answer: 1,
+                                        explanation: "Lời khuyên không nên làm gì: <b>shouldn’t</b> eat too much fast food (không nên ăn quá nhiều đồ ăn nhanh)."
+                                    },
+                                    {
+                                        id: "t1_r1_3",
+                                        text: "Blank (3):",
+                                        options: ["A. so", "B. but", "C. or", "D. because"],
+                                        answer: 3,
+                                        explanation: "<b>because</b> (vì) dùng chỉ lý do: vì nó không tốt cho sức khỏe."
+                                    },
+                                    {
+                                        id: "t1_r1_4",
+                                        text: "Blank (4):",
+                                        options: ["A. for", "B. in", "C. to", "D. at"],
+                                        answer: 2,
+                                        explanation: "Chỉ mục đích: <b>to + V-bare</b> (to keep fit - để giữ dáng)."
+                                    }
+                                ]
+                            },
+                            {
+                                id: "p1_2",
+                                title: "Passage 2: Linh's Volunteer Work",
+                                text: "Last summer, Linh joined a volunteer project in her neighbourhood. <span id='t1_hl1'>Every Saturday morning, she and her friends collected old books and donated them to a village library.</span> They also tutored young children who found Maths difficult. <span id='t1_hl2'>Linh was tired after each activity, but she felt very happy.</span> She learnt teamwork skills and made many new friends. <span id='t1_hl3'>She says she will join another project next year.</span>",
+                                questions: [
+                                    {
+                                        id: "t1_r2_1",
+                                        text: "1. What did Linh do last summer?",
+                                        options: ["A. She moved to a village.", "B. She joined a volunteer project.", "C. She studied abroad.", "D. She opened a library."],
+                                        answer: 1,
+                                        highlightId: "t1_hl1",
+                                        explanation: "Đoạn văn viết: 'Last summer, Linh joined a volunteer project in her neighbourhood.'"
+                                    },
+                                    {
+                                        id: "t1_r2_2",
+                                        text: "2. What did Linh and her friends do with the old books?",
+                                        options: ["A. They sold them.", "B. They threw them away.", "C. They donated them to a library.", "D. They kept them at school."],
+                                        answer: 2,
+                                        highlightId: "t1_hl1",
+                                        explanation: "Bằng chứng trong bài (Tô vàng): '...collected old books and donated them to a village library.'"
+                                    },
+                                    {
+                                        id: "t1_r2_3",
+                                        text: "3. How did Linh feel after each activity?",
+                                        options: ["A. She was bored.", "B. She was angry.", "C. She was worried.", "D. She was tired but happy."],
+                                        answer: 3,
+                                        highlightId: "t1_hl2",
+                                        explanation: "Bằng chứng trong bài (Tô vàng): 'Linh was tired after each activity, but she felt very happy.'"
+                                    },
+                                    {
+                                        id: "t1_r2_4",
+                                        text: "4. What will Linh do next year?",
+                                        options: ["A. Join another project.", "B. Move to the city.", "C. Stop helping others.", "D. Teach English abroad."],
+                                        answer: 0,
+                                        highlightId: "t1_hl3",
+                                        explanation: "Bằng chứng trong bài (Tô vàng): 'She says she will join another project next year.'"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "D. WRITING",
+                        type: "writing",
+                        instruction: "I. Rearrange, II. Rewrite, & III. Sentence Building",
+                        questions: [
+                            {
+                                id: "t1_w1",
+                                text: "1. Rearrange: should / fresh / eat / You / fruit / vegetables / and / plenty of / every day",
+                                answer: "You should eat plenty of fresh fruit and vegetables every day.",
+                                explanation: "Cấu trúc: S + should + V + O + adv. (Bạn nên ăn nhiều trái cây và rau tươi mỗi ngày)."
+                            },
+                            {
+                                id: "t1_w2",
+                                text: "2. Rearrange: collected / We / in / rubbish / the / park / last / weekend",
+                                answer: "We collected rubbish in the park last weekend.",
+                                explanation: "Chủ ngữ (We) + Động từ (collected) + Tân ngữ (rubbish) + Nơi chốn (in the park) + Thời gian (last weekend)."
+                            },
+                            {
+                                id: "t1_w3",
+                                text: "3. Rewrite: I will join the volunteer club next month. (GOING TO)\n→ I am ...",
+                                answer: ["I am going to join the volunteer club next month.", "I'm going to join the volunteer club next month."],
+                                explanation: "Viết lại câu tương đương dùng <b>be going to</b> thay cho <b>will</b>."
+                            },
+                            {
+                                id: "t1_w4",
+                                text: "4. Rewrite: Mark wants to stay fit. He does morning exercise every day. (SO)\n→ Mark ...",
+                                answer: "Mark wants to stay fit, so he does morning exercise every day.",
+                                explanation: "Nối hai câu nguyên nhân - kết quả bằng từ nối <b>so</b> (có dấu phẩy trước so)."
+                            },
+                            {
+                                id: "t1_w5",
+                                text: "5. Make question with WHAT for: Phuc joined a volunteer project last weekend.",
+                                answer: "What did Phuc do last weekend?",
+                                explanation: "Hỏi về hành động ở quá khứ: <b>What + did + S + do + thời gian?</b>"
+                            },
+                            {
+                                id: "t1_w6",
+                                text: "6. Rewrite: Collecting teddy bears is Elena’s favourite hobby. (LOVES)\n→ Elena ...",
+                                answer: "Elena loves collecting teddy bears.",
+                                explanation: "Sở thích hàng đầu là gom gấu bông -> Elena yêu thích gom gấu bông (S + loves + V-ing)."
+                            },
+                            {
+                                id: "t1_w7",
+                                text: "7. Complete: Teenagers / should / drink / plenty of / water / instead of / sugary soft drinks.",
+                                answer: "Teenagers should drink plenty of water instead of sugary soft drinks.",
+                                explanation: "Ghép câu hoàn chỉnh: Teenagers should drink plenty of water instead of sugary soft drinks."
+                            },
+                            {
+                                id: "t1_w8",
+                                text: "8. Complete: Our school / organize / volunteer activities / every summer / help / needy people.",
+                                answer: "Our school organizes volunteer activities every summer to help needy people.",
+                                explanation: "Dấu hiệu 'every summer' chia hiện tại đơn (organizes) + to V chỉ mục đích (to help)."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Đề số 2 (Đề Kiểm Tra Midterm Test 2)",
+                subtitle: "Thời gian: 60 phút - Môn Tiếng Anh 7",
+                sections: [
+                    {
+                        name: "B. USE OF LANGUAGE",
+                        type: "mcq",
+                        instruction: "I. Choose the best answer (A, B, C or D).",
+                        questions: [
+                            {
+                                id: "t2_u1",
+                                text: "1. Choose the word that has the underlined part pronounced differently: p<u>i</u>cture / s<u>u</u>nburn / t<u>u</u>rning / s<u>u</u>rfing",
+                                options: ["A. picture", "B. sunburn", "C. turning", "D. surfing"],
+                                answer: 0,
+                                explanation: "<b>picture</b> gạch chân phát âm âm /ɪ/. Các từ còn lại sunburn, turning, surfing phát âm là /ɜː/."
+                            },
+                            {
+                                id: "t2_u2",
+                                text: "2. Choose the word that has the underlined part pronounced differently: jump<u>ed</u> / talk<u>ed</u> / want<u>ed</u> / laugh<u>ed</u>",
+                                options: ["A. jumped", "B. talked", "C. wanted", "D. laughed"],
+                                answer: 2,
+                                explanation: "<b>wanted</b> phát âm đuôi -ed là /ɪd/. Các từ còn lại phát âm đuôi -ed là /t/."
+                            },
+                            {
+                                id: "t2_u3",
+                                text: "3. It’s advisable to take regular ______ to keep fit.",
+                                options: ["A. habit", "B. exercise", "C. balance", "D. sleep"],
+                                answer: 1,
+                                explanation: "Cụm từ <b>take regular exercise</b>: tập thể dục thường xuyên."
+                            },
+                            {
+                                id: "t2_u4",
+                                text: "4. The ______ provides a safe and comfortable environment for the elderly.",
+                                options: ["A. nursing home", "B. organisation", "C. charity", "D. orphanage"],
+                                answer: 0,
+                                explanation: "<b>nursing home</b>: viện dưỡng lão (nơi chăm sóc người cao tuổi)."
+                            },
+                            {
+                                id: "t2_u5",
+                                text: "5. Matthew ate two bowls of noodles and an ice cream this morning, and now he is having a ______.",
+                                options: ["A. runny nose", "B. acne", "C. stomach ache", "D. chapped lips"],
+                                answer: 2,
+                                explanation: "Ăn quá nhiều đồ ăn lẫn lộn sẽ bị <b>stomach ache</b> (đau bụng/đau dạ dày)."
+                            },
+                            {
+                                id: "t2_u6",
+                                text: "6. You can join different volunteer activities in our programme, such as ______ homeless children in the orphanage or ______ litter along the street.",
+                                options: ["A. helping; planting", "B. tutoring; picking up", "C. exchanging; cleaning", "D. recycling; collecting"],
+                                answer: 1,
+                                explanation: "<b>tutoring</b> (dạy kèm trẻ em) và <b>picking up</b> litter (nhặt rác trên đường)."
+                            },
+                            {
+                                id: "t2_u7",
+                                text: "7. A lot of students ______ about global warming now.",
+                                options: ["A. studies", "B. is studying", "C. are studying", "D. study"],
+                                answer: 2,
+                                explanation: "Dấu hiệu 'now' + chủ ngữ số nhiều 'A lot of students' -> <b>are studying</b>."
+                            },
+                            {
+                                id: "t2_u8",
+                                text: "8. I’m afraid John ______ us tomorrow because he’s sick.",
+                                options: ["A. hasn’t joined", "B. didn’t join", "C. doesn’t join", "D. won’t join"],
+                                answer: 3,
+                                explanation: "Dấu hiệu 'tomorrow' -> chia thì tương lai đơn phủ định: <b>won’t join</b>."
+                            },
+                            {
+                                id: "t2_u9",
+                                text: "9. Trang: What do you like to do in your free time? – Lan: “______”",
+                                options: ["A. I don’t have much time to do outdoor activities.", "B. I don’t really like going out in this weather.", "C. You can go outside more instead of watching TV all day on the couch.", "D. I love outdoor activities, such as gardening and horse riding."],
+                                answer: 3,
+                                explanation: "Câu hỏi về sở thích lúc rảnh rỗi -> trả lời: 'I love outdoor activities...'"
+                            },
+                            {
+                                id: "t2_u10",
+                                text: "10. Khanh: Oh no! I’m putting on weight. What should I do? – Kim: “______”",
+                                options: ["A. You should avoid eating fast food, and you need to do more exercise.", "B. You should eat a variety of food like fish, meat, and vegetables.", "C. You should wear a face mask and wash your hands often.", "D. You should apply sun cream before going outside."],
+                                answer: 0,
+                                explanation: "Khuyên người tăng cân: Nên tránh đồ ăn nhanh và tập thể dục nhiều hơn."
+                            },
+                            {
+                                id: "t2_u11",
+                                text: "11. Peter: I’ve got a toothache. What should I do? – Jane: “______”",
+                                options: ["A. You shouldn’t stay up late.", "B. You need to spend more time on studying.", "C. You should eat more sugary food.", "D. You should go to the dentist."],
+                                answer: 3,
+                                explanation: "Đau răng (toothache) thì nên đi khám nha sĩ (<b>go to the dentist</b>)."
+                            },
+                            {
+                                id: "t2_u12",
+                                text: "12. Amy: I made this spring rolls dish by myself. – Lucas: “______”",
+                                options: ["A. Spring rolls are a traditional Vietnamese dish.", "B. It smells good. Can I try one?", "C. Spring rolls should go with fish sauce.", "D. I like eating pho more than spring rolls."],
+                                answer: 1,
+                                explanation: "Khen món ăn tự làm: 'It smells good. Can I try one?' (Món này thơm quá. Tớ ăn thử một cái nhé?)."
+                            }
+                        ]
+                    },
+                    {
+                        name: "B. WORD FORM & VERBS",
+                        type: "fill_text",
+                        instruction: "II. Word Form & III. Verb Tenses",
+                        questions: [
+                            {
+                                id: "t2_wf1",
+                                text: "1. After eating lobster, I had a terrible ______ and red spots appeared all over my body. (ALLERGIC)",
+                                answer: "allergy",
+                                explanation: "Sau tính từ 'terrible' cần danh từ: <b>allergy</b> (sự dị ứng)."
+                            },
+                            {
+                                id: "t2_wf2",
+                                text: "2. People who eat too much fast food and have a sedentary lifestyle tend to get ______ easily. (OBESITY)",
+                                answer: "obese",
+                                explanation: "Cấu trúc 'get + adj': <b>obese</b> (béo phì)."
+                            },
+                            {
+                                id: "t2_vt1",
+                                text: "3. My parents sometimes ______ (chat) with our neighbours after dinner.",
+                                answer: "chat",
+                                explanation: "Dấu hiệu 'sometimes' + chủ ngữ số nhiều 'My parents' -> giữ nguyên <b>chat</b> (Hiện tại đơn)."
+                            },
+                            {
+                                id: "t2_vt2",
+                                text: "4. When Peter arrives in New York, he ______ (call) you.",
+                                answer: "will call",
+                                explanation: "Mệnh đề trạng ngữ chỉ thời gian ở hiện tại (When Peter arrives) -> mệnh đề chính chia tương lai đơn: <b>will call</b>."
+                            }
+                        ]
+                    },
+                    {
+                        name: "C. READING COMPREHENSION",
+                        type: "reading",
+                        passages: [
+                            {
+                                id: "p2_1",
+                                title: "Passage 1: Breakfast Importance",
+                                text: "Like many people, I never miss breakfast. I try to get up early to prepare a meal every morning. Having breakfast provides me with a lot of (1) ______ throughout the morning. (2) ______, I can concentrate on my work and study better. If I don’t eat breakfast, I will feel tired and sleepy. I often have scrambled eggs, buttered toast, or noodles for breakfast because they are easy to make and (3) ______. I think breakfast is the most important meal of the day, so people should not (4) ______ it.",
+                                questions: [
+                                    {
+                                        id: "t2_r1_1",
+                                        text: "Blank (1):",
+                                        options: ["A. skip", "B. Therefore", "C. energy", "D. high in nutrients"],
+                                        answer: 2,
+                                        explanation: "Bữa sáng cung cấp rất nhiều <b>energy</b> (năng lượng)."
+                                    },
+                                    {
+                                        id: "t2_r1_2",
+                                        text: "Blank (2):",
+                                        options: ["A. Because", "B. Therefore", "C. energy", "D. skip"],
+                                        answer: 1,
+                                        explanation: "<b>Therefore</b> (Do đó/Vì vậy), tôi có thể tập trung vào công việc và học tập tốt hơn."
+                                    },
+                                    {
+                                        id: "t2_r1_3",
+                                        text: "Blank (3):",
+                                        options: ["A. high in nutrients", "B. skip", "C. energy", "D. Because"],
+                                        answer: 0,
+                                        explanation: "Dễ làm và <b>high in nutrients</b> (giàu dinh dưỡng)."
+                                    },
+                                    {
+                                        id: "t2_r1_4",
+                                        text: "Blank (4):",
+                                        options: ["A. energy", "B. Therefore", "C. Because", "D. skip"],
+                                        answer: 3,
+                                        explanation: "Mọi người không nên <b>skip</b> (bỏ) bữa sáng."
+                                    }
+                                ]
+                            },
+                            {
+                                id: "p2_2",
+                                title: "Passage 2: Community Activities for Children",
+                                text: "Children are encouraged to participate in their communities, help people in need, and try to improve the world. <span id='t2_hl1'>Participating in these community activities helps boost their self-esteem, self-confidence and builds their compassion as well as empathy.</span> <span id='t2_hl2'>Some people think finding age-appropriate opportunities might be difficult, but it’s actually not</span> because there are many ways for children to do.<br><br><span id='t2_hl3'>The activities may be visiting the elderly in the nursing home or participating in a community clean-up day.</span><br><br><span id='t2_hl4'>Even though children may not fully understand the meaning of volunteering, taking part in these activities from an early age can help them establish community activity as a regular part of their life.</span>",
+                                questions: [
+                                    {
+                                        id: "t2_r2_1",
+                                        text: "1. According to the passage, what can community activities help children build?",
+                                        options: ["A. Their physical strength", "B. Their compassion and empathy", "C. Their school grades", "D. Their cooking skills"],
+                                        answer: 1,
+                                        highlightId: "t2_hl1",
+                                        explanation: "Bằng chứng (Tô vàng): '...builds their compassion as well as empathy.'"
+                                    },
+                                    {
+                                        id: "t2_r2_2",
+                                        text: "2. What do some people think about finding age-appropriate volunteering opportunities for children?",
+                                        options: ["A. They might be difficult to find.", "B. They are unnecessary.", "C. They are very cheap.", "D. They are dangerous."],
+                                        answer: 0,
+                                        highlightId: "t2_hl2",
+                                        explanation: "Bằng chứng (Tô vàng): 'Some people think finding age-appropriate opportunities might be difficult...'"
+                                    },
+                                    {
+                                        id: "t2_r2_3",
+                                        text: "3. Which activity is mentioned as something children and their parents can do together?",
+                                        options: ["A. Teaching high school students", "B. Building houses for the poor", "C. Visiting the elderly in the nursing home", "D. Raising money for flood victims"],
+                                        answer: 2,
+                                        highlightId: "t2_hl3",
+                                        explanation: "Bằng chứng (Tô vàng): 'The activities may be visiting the elderly in the nursing home...'"
+                                    },
+                                    {
+                                        id: "t2_r2_4",
+                                        text: "4. Why does the writer say children should get started early?",
+                                        options: ["A. Because children already understand the meaning of volunteering.", "B. Because young children are too young to volunteer.", "C. Because opportunities are hard to find later.", "D. Because it helps them make community activity a regular part of their life."],
+                                        answer: 3,
+                                        highlightId: "t2_hl4",
+                                        explanation: "Bằng chứng (Tô vàng): '...help them establish community activity as a regular part of their life.'"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "D. WRITING",
+                        type: "writing",
+                        instruction: "I. Rearrange, II. Rewrite, III. Sentence Building & IV. Questions",
+                        questions: [
+                            {
+                                id: "t2_w1",
+                                text: "1. Rearrange: play / What kinds / in / spare time? / their / Nam and his friends / of games / do",
+                                answer: "What kinds of games do Nam and his friends play in their spare time?",
+                                explanation: "Câu hỏi: What kinds of games + do + Nam and his friends + play + in their spare time?"
+                            },
+                            {
+                                id: "t2_w2",
+                                text: "2. Rearrange: We / backgrounds. / a charity / set up / organisation / disadvantaged / from / to help / children",
+                                answer: "We set up a charity organisation to help children from disadvantaged backgrounds.",
+                                explanation: "Chúng tôi đã thành lập một tổ chức từ thiện để giúp đỡ trẻ em có hoàn cảnh khó khăn."
+                            },
+                            {
+                                id: "t2_w3",
+                                text: "3. Rewrite: It’s a good idea for you to eat more fruit and vegetables.\n→ You should ...",
+                                answer: "You should eat more fruit and vegetables.",
+                                explanation: "Cấu trúc 'It's a good idea for sb to V' chuyển thành 'S + should + V'."
+                            },
+                            {
+                                id: "t2_w4",
+                                text: "4. Rewrite: Why don’t we collect old clothes for poor children?\n→ Let’s ...",
+                                answer: "Let’s collect old clothes for poor children.",
+                                explanation: "Gợi ý 'Why don't we + V...?' chuyển sang 'Let's + V-bare'."
+                            },
+                            {
+                                id: "t2_w5",
+                                text: "5. Complete: Nam / spend / a lot of time / play badminton / with his friends / last weekend.",
+                                answer: "Nam spent a lot of time playing badminton with his friends last weekend.",
+                                explanation: "Thì quá khứ đơn (spent) + spend time V-ing (playing)."
+                            },
+                            {
+                                id: "t2_w6",
+                                text: "6. Complete: We / should / drink / enough water / and / avoid / sugary drinks / to stay healthy.",
+                                answer: "We should drink enough water and avoid sugary drinks to stay healthy.",
+                                explanation: "Ghép hoàn chỉnh: We should drink enough water and avoid sugary drinks to stay healthy."
+                            },
+                            {
+                                id: "t2_w7",
+                                text: "7. Make question for: Nam’s sister goes to the nursing home <u>twice a month</u>.",
+                                answer: "How often does Nam’s sister go to the nursing home?",
+                                explanation: "Hỏi tần suất 'twice a month' -> <b>How often + does + S + V-bare?</b>"
+                            },
+                            {
+                                id: "t2_w8",
+                                text: "8. Make question for: I like cycling <u>because it helps me keep fit</u>.",
+                                answer: ["Why do you like cycling?", "Why do you enjoy cycling?"],
+                                explanation: "Hỏi lý do bắt đầu bằng 'because' -> dùng từ hỏi <b>Why + do + you + like cycling?</b>"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Đề số 3 (Đề Kiểm Tra Midterm Test 3)",
+                subtitle: "Thời gian: 60 phút - Môn Tiếng Anh 7",
+                sections: [
+                    {
+                        name: "A. GAP-FILLING",
+                        type: "fill_text",
+                        instruction: "Read the announcement and fill in each blank with ONE suitable word starting with the given letter.",
+                        questions: [
+                            {
+                                id: "t3_g1",
+                                text: "1. We meet at the school gate at 7 a.m. every Saturday (1) m _ _ _ _ _ _.",
+                                answer: "morning",
+                                explanation: "Vào 7 giờ sáng mỗi thứ Bảy: <b>morning</b>."
+                            },
+                            {
+                                id: "t3_g2",
+                                text: "2. First, we (2) c _ _ _ _ _ _ rubbish along the streets.",
+                                answer: "collect",
+                                explanation: "Thu gom rác trên phố: <b>collect</b>."
+                            },
+                            {
+                                id: "t3_g3",
+                                text: "3. After that, we (3) p _ _ _ _ young trees in the park.",
+                                answer: "plant",
+                                explanation: "Trồng cây non trong công viên: <b>plant</b>."
+                            },
+                            {
+                                id: "t3_g4",
+                                text: "4. Last month, we also (4) v _ _ _ _ _ _ the nursing home...",
+                                answer: "visited",
+                                explanation: "Tháng trước chúng tôi đã thăm viện dưỡng lão: chia quá khứ <b>visited</b>."
+                            },
+                            {
+                                id: "t3_g5",
+                                text: "5. Our members are kind and always ready to (5) h _ _ _ people in need.",
+                                answer: "help",
+                                explanation: "Sẵn sàng giúp đỡ người gặp khó khăn: <b>help</b>."
+                            }
+                        ]
+                    },
+                    {
+                        name: "B. USE OF LANGUAGE",
+                        type: "mcq",
+                        instruction: "I. Choose the best answer (A, B, C or D).",
+                        questions: [
+                            {
+                                id: "t3_u1",
+                                text: "1. Pronunciation: t<u>ur</u>n / h<u>ur</u>t / w<u>or</u>k / w<u>ar</u>m",
+                                options: ["A. turn", "B. hurt", "C. work", "D. warm"],
+                                answer: 3,
+                                explanation: "<b>warm</b> phát âm là /wɔːm/ (âm /ɔː/). Các từ turn, hurt, work đều chứa âm /ɜː/."
+                            },
+                            {
+                                id: "t3_u2",
+                                text: "2. Pronunciation (-ed): pick<u>ed</u> / help<u>ed</u> / plant<u>ed</u> / wash<u>ed</u>",
+                                options: ["A. picked", "B. helped", "C. planted", "D. washed"],
+                                answer: 2,
+                                explanation: "<b>planted</b> đuôi -ed phát âm là /ɪd/. Các từ còn lại phát âm là /t/."
+                            },
+                            {
+                                id: "t3_u3",
+                                text: "3. Doctors say that a ______ diet includes enough vitamins, protein and fibre.",
+                                options: ["A. balanced", "B. sunburn", "C. obese", "D. sedentary"],
+                                answer: 0,
+                                explanation: "<b>balanced diet</b>: chế độ ăn cân đối, lành mạnh."
+                            },
+                            {
+                                id: "t3_u4",
+                                text: "4. Many young people work as ______ at the local hospital without being paid.",
+                                options: ["A. volunteers", "B. neighbours", "C. customers", "D. patients"],
+                                answer: 0,
+                                explanation: "Làm việc không nhận lương: <b>volunteers</b> (tình nguyện viên)."
+                            },
+                            {
+                                id: "t3_u5",
+                                text: "5. Tom has a high ______ and he is lying in bed...",
+                                options: ["A. temperature", "B. sleep", "C. height", "D. diet"],
+                                answer: 0,
+                                explanation: "Cụm từ <b>have a high temperature</b>: bị sốt cao."
+                            },
+                            {
+                                id: "t3_u6",
+                                text: "6. My brother likes ______ coins, and my sister loves ______ birds in the park.",
+                                options: ["A. collecting; watching", "B. making; reading", "C. playing; carving", "D. growing; collecting"],
+                                answer: 0,
+                                explanation: "Sưu tầm tiền xu (<b>collecting coins</b>) và ngắm chim (<b>watching birds</b>)."
+                            },
+                            {
+                                id: "t3_u7",
+                                text: "7. Hurry up! The volunteers ______ for us at the school gate now.",
+                                options: ["A. wait", "B. waits", "C. are waiting", "D. waited"],
+                                answer: 2,
+                                explanation: "Dấu hiệu 'now' -> thì hiện tại tiếp diễn: <b>are waiting</b>."
+                            },
+                            {
+                                id: "t3_u8",
+                                text: "8. Last Sunday, our class ______ a charity sale to help the flood victims.",
+                                options: ["A. organises", "B. will organise", "C. is organising", "D. organised"],
+                                answer: 3,
+                                explanation: "Dấu hiệu 'Last Sunday' -> thì quá khứ đơn: <b>organised</b>."
+                            },
+                            {
+                                id: "t3_u9",
+                                text: "9. Mai: Which hobby do you enjoy most? – Hoa: “______”",
+                                options: ["A. Yes, I do.", "B. About two hours a week.", "C. Collecting stamps is my favourite one.", "D. With my cousins at weekends."],
+                                answer: 2,
+                                explanation: "Hỏi về sở thích yêu thích nhất -> 'Collecting stamps is my favourite one.'"
+                            },
+                            {
+                                id: "t3_u10",
+                                text: "10. Linh: I feel dizzy and tired after staying up late last night. What should I do? – Tuan: “______”",
+                                options: ["A. You should go to bed early and get enough sleep.", "B. You shouldn't wash your hands.", "C. You should drink more soft drinks.", "D. You should play video games all night."],
+                                answer: 0,
+                                explanation: "Khuyên khi thức khuya bị mệt: Bạn nên đi ngủ sớm và ngủ đủ giấc."
+                            },
+                            {
+                                id: "t3_u11",
+                                text: "11. Lucy: Would you like to join us? – Ben: “______”",
+                                options: ["A. Yes, I'd love to. What time shall we meet?", "B. That's all right.", "C. I'm sorry to hear that.", "D. You're welcome."],
+                                answer: 0,
+                                explanation: "Đồng ý lời mời: 'Yes, I'd love to. What time shall we meet?'"
+                            },
+                            {
+                                id: "t3_u12",
+                                text: "12. Hana: Look! I knitted this scarf for homeless people. – Ken: “______”",
+                                options: ["A. Wow, it's lovely. You're really good at knitting!", "B. Knitting is a hobby of many people.", "C. You should keep warm in winter.", "D. I don't know how to knit it."],
+                                answer: 0,
+                                explanation: "Khen ngợi sản phẩm đan len: 'Wow, it's lovely. You're really good at knitting!'"
+                            }
+                        ]
+                    },
+                    {
+                        name: "B. WORD FORM & VERBS",
+                        type: "fill_text",
+                        instruction: "II. Word Form & III. Verb Tenses",
+                        questions: [
+                            {
+                                id: "t3_wf1",
+                                text: "1. Eating too many sweets and too much fast food is very ______ for teenagers. (HEALTH)",
+                                answer: "unhealthy",
+                                explanation: "Ăn quá nhiều đồ ngọt và đồ ăn nhanh rất <b>unhealthy</b> (không lành mạnh/có hại cho sức khỏe)."
+                            },
+                            {
+                                id: "t3_wf2",
+                                text: "2. The old woman thanked the students for their ______ when they helped her... (KIND)",
+                                answer: "kindness",
+                                explanation: "Sau tính từ sở hữu 'their' cần một danh từ: <b>kindness</b> (lòng tốt)."
+                            },
+                            {
+                                id: "t3_vt1",
+                                text: "3. Mai's father ______ (fix) old bicycles for poor children every weekend.",
+                                answer: "fixes",
+                                explanation: "Dấu hiệu 'every weekend' -> Hiện tại đơn với chủ ngữ số ít: <b>fixes</b>."
+                            },
+                            {
+                                id: "t3_vt2",
+                                text: "4. I think our team ______ (win) the volunteering contest next month.",
+                                answer: ["will win", "is going to win"],
+                                explanation: "Dự đoán 'I think' + thời gian 'next month' -> <b>will win</b>."
+                            }
+                        ]
+                    },
+                    {
+                        name: "C. READING COMPREHENSION",
+                        type: "reading",
+                        passages: [
+                            {
+                                id: "p3_1",
+                                title: "Passage 1: Cycling Hobby",
+                                text: "Last year, I started a new hobby: cycling. I ride my bike around the lake every Sunday morning. Cycling has many (1) ______ for my health. It makes my legs strong and helps me stay fit. (2) ______ I spend a lot of time outdoors, I also get fresh air and sunlight. Cycling is also a great way to (3) ______ after a hard week at school. If I feel (4) ______ because of too much homework, a short ride makes me happy again.",
+                                questions: [
+                                    {
+                                        id: "t3_r1_1",
+                                        text: "Blank (1):",
+                                        options: ["A. benefits", "B. Because", "C. relax", "D. stressed"],
+                                        answer: 0,
+                                        explanation: "Đạp xe mang lại nhiều <b>benefits</b> (lợi ích) cho sức khỏe."
+                                    },
+                                    {
+                                        id: "t3_r1_2",
+                                        text: "Blank (2):",
+                                        options: ["A. Although", "B. Because", "C. relax", "D. stressed"],
+                                        answer: 1,
+                                        explanation: "<b>Because</b> (Bởi vì) tôi dành nhiều thời gian ngoài trời, tôi nhận được không khí lành."
+                                    },
+                                    {
+                                        id: "t3_r1_3",
+                                        text: "Blank (3):",
+                                        options: ["A. benefits", "B. stressed", "C. relax", "D. Although"],
+                                        answer: 2,
+                                        explanation: "Cách tuyệt vời để <b>relax</b> (thư giãn) sau tuần học căng thẳng."
+                                    },
+                                    {
+                                        id: "t3_r1_4",
+                                        text: "Blank (4):",
+                                        options: ["A. stressed", "B. benefits", "C. Although", "D. relax"],
+                                        answer: 0,
+                                        explanation: "Nếu tôi cảm thấy <b>stressed</b> (căng thẳng) do quá nhiều bài tập."
+                                    }
+                                ]
+                            },
+                            {
+                                id: "p3_2",
+                                title: "Passage 2: Teenagers & Sleep",
+                                text: "Many teenagers think that staying up late is cool, but <span id='t3_hl1'>doctors say that teenagers need about eight to ten hours of sleep every night.</span> Sleep gives the body time to rest and grow.<br><br><span id='t3_hl2'>Teenagers who sleep too little often feel tired and bad-tempered. They may also get ill more easily.</span> Some students drink coffee or energy drinks to stay awake, but <span id='t3_hl3'>these drinks can make the problem worse because they keep the body active at night.</span><br><br>To sleep better, you should go to bed at the same time every day and turn off your phone an hour before bedtime. A warm shower and a good book can also help. <span id='t3_hl4'>Finally, remember to do some exercise during the day, but not right before going to bed.</span>",
+                                questions: [
+                                    {
+                                        id: "t3_r2_1",
+                                        text: "1. How many hours of sleep do teenagers need every night?",
+                                        options: ["A. About six to seven hours", "B. About eight to ten hours", "C. About ten to twelve hours", "D. About five to six hours"],
+                                        answer: 1,
+                                        highlightId: "t3_hl1",
+                                        explanation: "Bằng chứng (Tô vàng): '...teenagers need about eight to ten hours of sleep every night.'"
+                                    },
+                                    {
+                                        id: "t3_r2_2",
+                                        text: "2. What can happen to teenagers who sleep too little?",
+                                        options: ["A. They grow taller very quickly.", "B. They remember lessons better.", "C. They often feel tired and get ill more easily.", "D. They have more energy at school."],
+                                        answer: 2,
+                                        highlightId: "t3_hl2",
+                                        explanation: "Bằng chứng (Tô vàng): 'Teenagers who sleep too little often feel tired and bad-tempered. They may also get ill more easily.'"
+                                    },
+                                    {
+                                        id: "t3_r2_3",
+                                        text: "3. Why can energy drinks make the sleeping problem worse?",
+                                        options: ["A. Because they taste bad.", "B. Because they keep the body active at night.", "C. Because they make students sleepy in class.", "D. Because they are very expensive."],
+                                        answer: 1,
+                                        highlightId: "t3_hl3",
+                                        explanation: "Bằng chứng (Tô vàng): '...because they keep the body active at night.'"
+                                    },
+                                    {
+                                        id: "t3_r2_4",
+                                        text: "4. Which of the following is NOT suggested in the passage for better sleep?",
+                                        options: ["A. Going to bed at the same time every day", "B. Turning off the phone before bedtime", "C. Taking a warm shower", "D. Doing exercise right before going to bed"],
+                                        answer: 3,
+                                        highlightId: "t3_hl4",
+                                        explanation: "Bằng chứng (Tô vàng): Bài khuyên không tập thể dục ngay trước khi ngủ ('...but not right before going to bed'). Do đó đáp án D là KHÔNG được khuyên."
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "D. WRITING",
+                        type: "writing",
+                        instruction: "I. Rearrange, II. Rewrite, III. Sentence Building & IV. Questions",
+                        questions: [
+                            {
+                                id: "t3_w1",
+                                text: "1. Rearrange: enjoys / old coins / My cousin / in his free time. / collecting",
+                                answer: "My cousin enjoys collecting old coins in his free time.",
+                                explanation: "Chủ ngữ (My cousin) + enjoys + V-ing (collecting old coins) + thời gian (in his free time)."
+                            },
+                            {
+                                id: "t3_w2",
+                                text: "2. Rearrange: We / plant / in our school yard / will / trees / this weekend.",
+                                answer: "We will plant trees in our school yard this weekend.",
+                                explanation: "We + will + plant + trees + in our school yard + this weekend."
+                            },
+                            {
+                                id: "t3_w3",
+                                text: "3. Rewrite: It is a bad idea for you to stay up late.\n→ You shouldn't ...",
+                                answer: "You shouldn't stay up late.",
+                                explanation: "Khuyên không nên: It is a bad idea -> You shouldn't + V-bare."
+                            },
+                            {
+                                id: "t3_w4",
+                                text: "4. Rewrite: Why don’t we visit the nursing home on Sunday?\n→ How about ...",
+                                answer: ["How about visiting the nursing home on Sunday?", "How about visiting the nursing home on Sunday"],
+                                explanation: "Cấu trúc gợi ý: <b>How about + V-ing...?</b>"
+                            },
+                            {
+                                id: "t3_w5",
+                                text: "5. Complete: Linh / join / a charity programme / help / street children / last summer.",
+                                answer: "Linh joined a charity programme to help street children last summer.",
+                                explanation: "Quá khứ đơn (joined) + to V mục đích (to help)."
+                            },
+                            {
+                                id: "t3_w6",
+                                text: "6. Complete: Minh / not / go / jogging / yesterday / because / it / rain / heavily.",
+                                answer: "Minh didn't go jogging yesterday because it rained heavily.",
+                                explanation: "Cả 2 mệnh đề chia quá khứ đơn (didn't go ... rained)."
+                            },
+                            {
+                                id: "t3_w7",
+                                text: "7. Make question for: <u>Last summer</u>, Nam volunteered at a local nursing home.",
+                                answer: "When did Nam volunteer at a local nursing home?",
+                                explanation: "Hỏi mốc thời gian 'Last summer' -> <b>When + did + S + V-bare?</b>"
+                            },
+                            {
+                                id: "t3_w8",
+                                text: "8. Make question for: There are <u>twenty</u> members in our volunteer club.",
+                                answer: "How many members are there in your volunteer club?",
+                                explanation: "Hỏi số lượng 'twenty' -> <b>How many members are there in your volunteer club?</b>"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "Đề số 4 (Đề Kiểm Tra Midterm Test 4)",
+                subtitle: "Thời gian: 60 phút - Môn Tiếng Anh 7",
+                sections: [
+                    {
+                        name: "A. GAP-FILLING",
+                        type: "fill_text",
+                        instruction: "Read the email and fill in each blank with ONE suitable word.",
+                        questions: [
+                            {
+                                id: "t4_g1",
+                                text: "1. We meet (1) ______ a week, on Tuesday and Friday afternoons.",
+                                answer: "twice",
+                                explanation: "Gặp 2 lần 1 tuần (Thứ 3 và Thứ 6): <b>twice</b> a week."
+                            },
+                            {
+                                id: "t4_g2",
+                                text: "2. I love making pottery (2) ______ it helps me relax after a stressful school day.",
+                                answer: "because",
+                                explanation: "Chỉ lý do: <b>because</b> (bởi vì)."
+                            },
+                            {
+                                id: "t4_g3",
+                                text: "3. Next month, our club (3) ______ hold an exhibition to raise money...",
+                                answer: ["will", "is going to"],
+                                explanation: "Chỉ sự việc trong tương lai: <b>will</b> hold hoặc <b>is going to</b> hold."
+                            },
+                            {
+                                id: "t4_g4",
+                                text: "4. Why don’t you come and (4) ______ us this Friday?",
+                                answer: "join",
+                                explanation: "Đến và tham gia cùng chúng tôi: come and <b>join</b> us."
+                            },
+                            {
+                                id: "t4_g5",
+                                text: "5. Please write back (5) ______ me soon.",
+                                answer: "to",
+                                explanation: "Cụm từ <b>write back to someone</b>: viết thư phản hồi cho ai."
+                            }
+                        ]
+                    },
+                    {
+                        name: "B. USE OF LANGUAGE",
+                        type: "mcq",
+                        instruction: "I. Choose the best answer (A, B, C or D).",
+                        questions: [
+                            {
+                                id: "t4_u1",
+                                text: "1. Pronunciation: n<u>ea</u>r / y<u>ea</u>r / h<u>ea</u>r / w<u>ea</u>r",
+                                options: ["A. near", "B. year", "C. hear", "D. wear"],
+                                answer: 3,
+                                explanation: "<b>wear</b> phát âm là /weə/ (âm /eə/). Các từ near, year, hear phát âm là /ɪə/."
+                            },
+                            {
+                                id: "t4_u2",
+                                text: "2. Pronunciation (-ed): collect<u>ed</u> / visit<u>ed</u> / clean<u>ed</u> / need<u>ed</u>",
+                                options: ["A. collected", "B. visited", "C. cleaned", "D. needed"],
+                                answer: 2,
+                                explanation: "<b>cleaned</b> phát âm đuôi -ed là /d/. Các từ collected, visited, needed đều có đuôi phát âm là /ɪd/."
+                            },
+                            {
+                                id: "t4_u3",
+                                text: "3. Regular ______ helps people stay fit and lowers the risk of heart disease.",
+                                options: ["A. sunburn", "B. exercise", "C. allergy", "D. spot"],
+                                answer: 1,
+                                explanation: "Regular <b>exercise</b>: tập thể dục đều đặn."
+                            },
+                            {
+                                id: "t4_u4",
+                                text: "4. Jack is a ______ boy. He often helps old people cross the road.",
+                                options: ["A. selfish", "B. helpful", "C. lazy", "D. rude"],
+                                answer: 1,
+                                explanation: "Hay giúp đỡ người già sang đường -> cậu bé hay giúp đỡ (<b>helpful</b>)."
+                            },
+                            {
+                                id: "t4_u5",
+                                text: "5. I have a ______ nose and I keep sneezing. I think I have a cold.",
+                                options: ["A. broken", "B. long", "C. runny", "D. round"],
+                                answer: 2,
+                                explanation: "Cụm từ <b>runny nose</b>: sổ mũi."
+                            },
+                            {
+                                id: "t4_u6",
+                                text: "6. My grandfather enjoys ______ bonsai trees and ______ fish in his garden.",
+                                options: ["A. flying; carving", "B. riding; drawing", "C. cooking; arranging", "D. growing; keeping"],
+                                answer: 3,
+                                explanation: "Trồng cây cảnh (<b>growing</b> bonsai trees) và nuôi cá (<b>keeping</b> fish)."
+                            },
+                            {
+                                id: "t4_u7",
+                                text: "7. My sister ______ her homework at the moment, so she can't go out with us.",
+                                options: ["A. does", "B. is doing", "C. did", "D. will do"],
+                                answer: 1,
+                                explanation: "Dấu hiệu 'at the moment' -> thì hiện tại tiếp diễn: <b>is doing</b>."
+                            },
+                            {
+                                id: "t4_u8",
+                                text: "8. I'm sure the weather ______ fine tomorrow, so we can go cycling.",
+                                options: ["A. is", "B. was", "C. will be", "D. has been"],
+                                answer: 2,
+                                explanation: "Dấu hiệu 'tomorrow' -> thì tương lai đơn: <b>will be</b>."
+                            },
+                            {
+                                id: "t4_u9",
+                                text: "9. Tom: What do you do to keep fit? – Hana: “______”",
+                                options: ["A. I go jogging three times a week.", "B. Yes, I do.", "C. I keep it at home.", "D. Because it's good."],
+                                answer: 0,
+                                explanation: "Hỏi thói quen giữ dáng -> 'I go jogging three times a week.'"
+                            },
+                            {
+                                id: "t4_u10",
+                                text: "10. Nga: I've got a sore throat. What should I do? – Hung: “______”",
+                                options: ["A. You should shout louder.", "B. You should drink cold soda.", "C. You shouldn't wear warm clothes.", "D. You should drink warm water with honey."],
+                                answer: 3,
+                                explanation: "Bị đau họng (sore throat) -> Khuyên nên uống nước ấm với mật ong."
+                            },
+                            {
+                                id: "t4_u11",
+                                text: "11. Ms Lan: Could you help me carry these boxes...? – Nam: “______”",
+                                options: ["A. No, you're welcome.", "B. Sure. Where shall I put them?", "C. Never mind.", "D. Yes, I'm sorry."],
+                                answer: 1,
+                                explanation: "Đồng ý giúp đỡ: 'Sure. Where shall I put them?' (Chắc chắn rồi. Cháu để chúng ở đâu ạ?)."
+                            },
+                            {
+                                id: "t4_u12",
+                                text: "12. Hoa: I don't have enough pens. – Ben: “______”",
+                                options: ["A. I can lend you some of mine.", "B. You're welcome.", "C. That's a good poster.", "D. I like drawing very much."],
+                                answer: 0,
+                                explanation: "Đề nghị giúp đỡ khi bạn thiếu bút: 'I can lend you some of mine.' (Tớ có thể cho bạn mượn vài cái của tớ)."
+                            }
+                        ]
+                    },
+                    {
+                        name: "B. WORD FORM & VERBS",
+                        type: "fill_text",
+                        instruction: "II. Word Form & III. Verb Tenses",
+                        questions: [
+                            {
+                                id: "t4_wf1",
+                                text: "1. A diet full of fat and sugar is ______ for your heart. (HARM)",
+                                answer: "harmful",
+                                explanation: "Sau động từ to be (is) cần tính từ: <b>harmful</b> (có hại)."
+                            },
+                            {
+                                id: "t4_wf2",
+                                text: "2. Joining outdoor ______ is a good way to make new friends. (ACTIVE)",
+                                answer: "activities",
+                                explanation: "Sau tính từ 'outdoor' cần danh từ số nhiều: <b>activities</b> (các hoạt động)."
+                            },
+                            {
+                                id: "t4_vt1",
+                                text: "3. My uncle ______ (not drink) coffee in the evening because it keeps him awake.",
+                                answer: ["doesn't drink", "does not drink"],
+                                explanation: "Sự thật/Thói quen -> Hiện tại đơn dạng phủ định với chủ ngữ số ít: <b>doesn't drink</b>."
+                            },
+                            {
+                                id: "t4_vt2",
+                                text: "4. Last summer, we ______ (build) a small library for children in the village.",
+                                answer: "built",
+                                explanation: "Dấu hiệu 'Last summer' -> Quá khứ đơn của build là <b>built</b>."
+                            }
+                        ]
+                    },
+                    {
+                        name: "C. READING COMPREHENSION",
+                        type: "reading",
+                        passages: [
+                            {
+                                id: "p4_1",
+                                title: "Passage 1: Animal Shelter Volunteer",
+                                text: "Every Saturday, Mai goes to the animal shelter in her town. She works there as a (1) ______ and takes care of dogs and cats. She feeds them, cleans their cages, and takes them for walks. Mai loves animals, (2) ______ she is happy to spend her free time there. The work is not easy, but it is very (3) ______ because many abandoned animals find a loving home. Mai also hopes that more young people will (4) ______ the shelter and become volunteers.",
+                                questions: [
+                                    {
+                                        id: "t4_r1_1",
+                                        text: "Blank (1):",
+                                        options: ["A. volunteer", "B. so", "C. rewarding", "D. visit"],
+                                        answer: 0,
+                                        explanation: "Làm việc tại trại động vật với vai trò là một <b>volunteer</b> (tình nguyện viên)."
+                                    },
+                                    {
+                                        id: "t4_r1_2",
+                                        text: "Blank (2):",
+                                        options: ["A. Although", "B. so", "C. rewarding", "D. visit"],
+                                        answer: 1,
+                                        explanation: "Chỉ kết quả: <b>so</b> (vì vậy/cho nên)."
+                                    },
+                                    {
+                                        id: "t4_r1_3",
+                                        text: "Blank (3):",
+                                        options: ["A. rewarding", "B. Although", "C. visit", "D. so"],
+                                        answer: 0,
+                                        explanation: "Công việc không dễ nhưng rất <b>rewarding</b> (bổ ích / đáng làm)."
+                                    },
+                                    {
+                                        id: "t4_r1_4",
+                                        text: "Blank (4):",
+                                        options: ["A. visit", "B. Although", "C. so", "D. rewarding"],
+                                        answer: 0,
+                                        explanation: "Hi vọng nhiều người trẻ sẽ <b>visit</b> (ghé thăm) trạm trú ẩn."
+                                    }
+                                ]
+                            },
+                            {
+                                id: "p4_2",
+                                title: "Passage 2: Warm Winter Campaign",
+                                text: "The 'Warm Winter' campaign started in our city three years ago. <span id='t4_hl1'>Every November, students and teachers collect warm clothes, blankets and shoes from their families and neighbours.</span> <span id='t4_hl2'>Then volunteers wash and pack them carefully.</span><br><br>In December, groups of volunteers travel to mountain villages... <span id='t4_hl3'>They give the clothes to children and old people, and they also organise games and singing for the villagers.</span><br><br>Last year, the campaign collected more than 3,000 items and visited five villages... <span id='t4_hl4'>This year, the organisers hope to collect 5,000 items.</span>",
+                                questions: [
+                                    {
+                                        id: "t4_r2_1",
+                                        text: "1. When do people collect warm clothes for the campaign?",
+                                        options: ["A. Every November", "B. Every December", "C. Every summer", "D. Every weekend"],
+                                        answer: 0,
+                                        highlightId: "t4_hl1",
+                                        explanation: "Bằng chứng (Tô vàng): 'Every November, students and teachers collect warm clothes...'"
+                                    },
+                                    {
+                                        id: "t4_r2_2",
+                                        text: "2. What do volunteers do before the trip to the villages?",
+                                        options: ["A. They buy new clothes.", "B. They wash and pack the clothes.", "C. They paint the school.", "D. They plant trees."],
+                                        answer: 1,
+                                        highlightId: "t4_hl2",
+                                        explanation: "Bằng chứng (Tô vàng): 'Then volunteers wash and pack them carefully.'"
+                                    },
+                                    {
+                                        id: "t4_r2_3",
+                                        text: "3. Besides giving clothes, what do volunteers do in the villages?",
+                                        options: ["A. They teach English.", "B. They build houses.", "C. They organise games and singing.", "D. They repair roads."],
+                                        answer: 2,
+                                        highlightId: "t4_hl3",
+                                        explanation: "Bằng chứng (Tô vàng): '...they also organise games and singing for the villagers.'"
+                                    },
+                                    {
+                                        id: "t4_r2_4",
+                                        text: "4. Which statement is TRUE according to the passage?",
+                                        options: ["A. The campaign started last year.", "B. Last year, it visited three villages.", "C. The volunteers found the trip boring.", "D. The organisers want to collect more items this year."],
+                                        answer: 3,
+                                        highlightId: "t4_hl4",
+                                        explanation: "Bằng chứng (Tô vàng): Năm ngoái thu được 3.000 vật phẩm, năm nay ban tổ chức hi vọng thu được 5.000 vật phẩm -> Muốn gom nhiều hơn."
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "D. WRITING",
+                        type: "writing",
+                        instruction: "I. Rearrange, II. Rewrite, III. Sentence Building & IV. Questions",
+                        questions: [
+                            {
+                                id: "t4_w1",
+                                text: "1. Rearrange: your sister / hours / How many / each night? / does / sleep",
+                                answer: "How many hours does your sister sleep each night?",
+                                explanation: "How many hours + does + your sister + sleep + each night?"
+                            },
+                            {
+                                id: "t4_w2",
+                                text: "2. Rearrange: volunteered / the lake / Our class / to clean / last Sunday.",
+                                answer: "Our class volunteered to clean the lake last Sunday.",
+                                explanation: "Our class + volunteered + to clean + the lake + last Sunday."
+                            },
+                            {
+                                id: "t4_w3",
+                                text: "3. Rewrite: You should do morning exercise to keep fit.\n→ Why don't you ...",
+                                answer: "Why don't you do morning exercise to keep fit?",
+                                explanation: "Cấu trúc đưa lời khuyên / gợi ý: <b>Why don't you + V-bare...?</b>"
+                            },
+                            {
+                                id: "t4_w4",
+                                text: "4. Rewrite: My brother's hobby is playing chess.\n→ My brother enjoys ...",
+                                answer: "My brother enjoys playing chess.",
+                                explanation: "Sở thích là chơi cờ -> anh tôi thích chơi cờ (<b>enjoys + V-ing</b>)."
+                            },
+                            {
+                                id: "t4_w5",
+                                text: "5. Complete: We / will / collect / old books / and / give / them / to / children / in need.",
+                                answer: "We will collect old books and give them to children in need.",
+                                explanation: "Ghép hoàn chỉnh: We will collect old books and give them to children in need."
+                            },
+                            {
+                                id: "t4_w6",
+                                text: "6. Complete: Tom / stay / home / yesterday / because / he / have / a bad cold.",
+                                answer: "Tom stayed at home yesterday because he had a bad cold.",
+                                explanation: "Quá khứ đơn (stayed at home ... had a bad cold)."
+                            },
+                            {
+                                id: "t4_w7",
+                                text: "7. Make question for: Hoa goes to the sports club <u>three times a week</u>.",
+                                answer: "How often does Hoa go to the sports club?",
+                                explanation: "Hỏi tần suất 'three times a week' -> <b>How often + does + Hoa + go...?</b>"
+                            },
+                            {
+                                id: "t4_w8",
+                                text: "8. Make question for: Mr Nam organised the charity run <u>last month</u>.",
+                                answer: "When did Mr Nam organise the charity run?",
+                                explanation: "Hỏi mốc thời gian 'last month' -> <b>When + did + Mr Nam + organise...?</b>"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Global State
+        let currentTestIdx = 0;
+        let currentSectionIdx = 0;
+        let userAnswers = {}; // key: question_id, val: user answer
+
+        // App Initialization
+        window.onload = function() {
+            renderTest();
+        };
+
+        // Switch active test
+        function switchTest(idx) {
+            currentTestIdx = idx;
+            currentSectionIdx = 0;
+            renderTest();
+        }
+
+        // Switch active section inside test
+        function switchSection(secIdx) {
+            currentSectionIdx = secIdx;
+            renderQuizContent();
+            renderSectionTabs();
+        }
+
+        // Render entire test view
+        function renderTest() {
+            const test = testsData[currentTestIdx];
+            
+            // Update Test Header UI
+            document.getElementById('test-title').innerText = test.title;
+            document.getElementById('test-desc').innerText = test.subtitle;
+
+            // Update Tab Button Styles
+            [0,1,2,3].forEach(i => {
+                const btn = document.getElementById(`btn-test-${i}`);
+                if (i === currentTestIdx) {
+                    btn.className = "px-4 py-2 rounded-xl text-base font-bold bg-yellow-400 text-purple-950 shadow-md ring-2 ring-yellow-200 transform scale-105 transition-all";
+                } else {
+                    btn.className = "px-4 py-2 rounded-xl text-base font-bold bg-purple-700 text-white shadow hover:bg-purple-600 transition-all";
+                }
+            });
+
+            renderSectionTabs();
+            renderQuizContent();
+            updateScore();
+        }
+
+        // Render Section Header Tabs
+        function renderSectionTabs() {
+            const test = testsData[currentTestIdx];
+            const container = document.getElementById('section-tabs');
+            container.innerHTML = '';
+
+            test.sections.forEach((sec, idx) => {
+                const isActive = idx === currentSectionIdx;
+                const btn = document.createElement('button');
+                btn.onclick = () => switchSection(idx);
+                btn.className = `px-4 py-2.5 rounded-xl font-bold text-base transition-all flex items-center gap-2 ${
+                    isActive 
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg transform -translate-y-0.5' 
+                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                }`;
+                btn.innerHTML = `<span>${sec.name}</span>`;
+                container.appendChild(btn);
+            });
+        }
+
+        // Render Questions based on active section
+        function renderQuizContent() {
+            const section = testsData[currentTestIdx].sections[currentSectionIdx];
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            // Render Instruction Card
+            const instBox = document.createElement('div');
+            instBox.className = "bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-xl font-medium text-purple-900 text-lg shadow-sm";
+            instBox.innerText = section.instruction || section.name;
+            container.appendChild(instBox);
+
+            // 1. Multiple Choice Questions (MCQ)
+            if (section.type === 'mcq') {
+                section.questions.forEach((q, idx) => {
+                    container.appendChild(createMCQCard(q, idx));
+                });
+            }
+            // 2. Fill in the Blank / Writing Questions
+            else if (section.type === 'fill_text' || section.type === 'writing') {
+                section.questions.forEach((q, idx) => {
+                    container.appendChild(createFillTextCard(q, idx));
+                });
+            }
+            // 3. Reading Comprehension Section
+            else if (section.type === 'reading') {
+                section.passages.forEach((p) => {
+                    container.appendChild(createReadingCard(p));
+                });
+            }
+        }
+
+        // Create MCQ Question Element
+        function createMCQCard(q, idx) {
+            const card = document.createElement('div');
+            card.className = "bg-white p-5 sm:p-6 rounded-2xl shadow-md border border-gray-100 hover:border-purple-200 transition-all";
+            
+            const selectedOpt = userAnswers[q.id];
+            const isAnswered = selectedOpt !== undefined;
+
+            let html = `<div class="font-bold text-lg text-gray-800 mb-4 flex items-start gap-3">
+                            <span class="bg-purple-600 text-white text-sm px-3 py-1 rounded-lg self-start">Câu ${idx + 1}</span>
+                            <div class="flex-1">${q.text}</div>
+                        </div>`;
+
+            html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">`;
+            q.options.forEach((opt, oIdx) => {
+                let btnStyle = "bg-gray-50 border-2 border-gray-200 text-gray-700 hover:bg-purple-50 hover:border-purple-300";
+                
+                if (isAnswered) {
+                    if (oIdx === q.answer) {
+                        btnStyle = "bg-green-100 border-2 border-green-500 text-green-900 font-bold";
+                    } else if (selectedOpt === oIdx) {
+                        btnStyle = "bg-red-100 border-2 border-red-500 text-red-900 font-bold";
+                    } else {
+                        btnStyle = "bg-gray-50 border border-gray-200 text-gray-400 opacity-60";
+                    }
+                }
+
+                html += `<button onclick="handleMCQSelect('${q.id}', ${oIdx})" ${isAnswered ? 'disabled' : ''} 
+                            class="w-full text-left p-3.5 rounded-xl font-medium text-base sm:text-lg transition-all flex items-center justify-between ${btnStyle}">
+                            <span>${opt}</span>
+                            ${isAnswered && oIdx === q.answer ? '<i class="fa-solid fa-circle-check text-green-600 text-xl"></i>' : ''}
+                            ${isAnswered && selectedOpt === oIdx && oIdx !== q.answer ? '<i class="fa-solid fa-circle-xmark text-red-600 text-xl"></i>' : ''}
+                         </button>`;
+            });
+            html += `</div>`;
+
+            // Explanation Section
+            if (isAnswered) {
+                const isCorrect = selectedOpt === q.answer;
+                html += `<div class="mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border-l-4 border-green-500' : 'bg-amber-50 border-l-4 border-amber-500'}">
+                            <div class="font-bold ${isCorrect ? 'text-green-800' : 'text-amber-800'} mb-1 flex items-center gap-2">
+                                <i class="fa-solid ${isCorrect ? 'fa-check' : 'fa-lightbulb'}"></i>
+                                ${isCorrect ? 'Đúng rồi!' : 'Giải thích đáp án:'}
+                            </div>
+                            <div class="text-gray-700 text-base leading-relaxed">${q.explanation}</div>
+                         </div>`;
+            }
+
+            card.innerHTML = html;
+            return card;
+        }
+
+        // Create Fill/Writing Input Card
+        function createFillTextCard(q, idx) {
+            const card = document.createElement('div');
+            card.className = "bg-white p-5 sm:p-6 rounded-2xl shadow-md border border-gray-100 transition-all";
+
+            const userVal = userAnswers[q.id];
+            const isAnswered = userVal !== undefined;
+
+            let html = `<div class="font-bold text-lg text-gray-800 mb-3 flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white text-sm px-3 py-1 rounded-lg self-start">Câu ${idx + 1}</span>
+                            <div class="flex-1 leading-relaxed whitespace-pre-line">${q.text}</div>
+                        </div>`;
+
+            html += `<div class="flex flex-col sm:flex-row gap-3 mt-3">
+                        <input type="text" id="input-${q.id}" value="${userVal || ''}" ${isAnswered ? 'disabled' : ''} 
+                               placeholder="Nhập câu trả lời của bạn vào đây..." 
+                               class="flex-1 border-2 border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-purple-500 disabled:bg-gray-100">
+                        ${!isAnswered ? `<button onclick="handleFillSubmit('${q.id}')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-3 rounded-xl transition-all shadow">
+                                            Kiểm tra
+                                         </button>` : ''}
+                     </div>`;
+
+            if (isAnswered) {
+                const correctAns = Array.isArray(q.answer) ? q.answer[0] : q.answer;
+                const isCorrect = checkAnswerText(userVal, q.answer);
+
+                html += `<div class="mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border-l-4 border-green-500' : 'bg-red-50 border-l-4 border-red-500'}">
+                            <div class="font-bold ${isCorrect ? 'text-green-800' : 'text-red-800'} mb-1">
+                                ${isCorrect ? ' Chính xác!' : ' Chưa chính xác!'}
+                            </div>
+                            <div class="text-gray-800 font-semibold mb-2">Đáp án đúng: <span class="text-purple-700 underline">${correctAns}</span></div>
+                            <div class="text-gray-700 text-base leading-relaxed">${q.explanation}</div>
+                         </div>`;
+            }
+
+            card.innerHTML = html;
+            return card;
+        }
+
+        // Create Reading Passage Card (With Highlight Text Feature)
+        function createReadingCard(p) {
+            const card = document.createElement('div');
+            card.className = "bg-white p-6 rounded-2xl shadow-md border border-gray-100 mb-8";
+
+            let html = `<h3 class="text-xl font-bold text-purple-700 mb-3 border-b pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-book-open"></i> ${p.title}
+                        </h3>`;
+            
+            // Text passage display box
+            html += `<div class="bg-amber-50/60 p-5 rounded-xl border border-amber-200 text-gray-800 text-lg leading-relaxed mb-6 tracking-wide" id="passage-text-${p.id}">
+                        ${p.text}
+                     </div>`;
+
+            // Questions under passage
+            html += `<div class="space-y-6">`;
+            p.questions.forEach((q, qIdx) => {
+                const selectedOpt = userAnswers[q.id];
+                const isAnswered = selectedOpt !== undefined;
+
+                html += `<div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                            <div class="font-bold text-base sm:text-lg text-gray-800 mb-3">
+                                <span class="text-purple-600 font-black">Câu ${qIdx + 1}:</span> ${q.text}
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">`;
+
+                q.options.forEach((opt, oIdx) => {
+                    let btnStyle = "bg-white border border-gray-300 text-gray-700 hover:bg-purple-50";
+                    if (isAnswered) {
+                        if (oIdx === q.answer) {
+                            btnStyle = "bg-green-100 border-2 border-green-500 text-green-900 font-bold";
+                        } else if (selectedOpt === oIdx) {
+                            btnStyle = "bg-red-100 border-2 border-red-500 text-red-900 font-bold";
+                        } else {
+                            btnStyle = "bg-white border border-gray-200 text-gray-400 opacity-60";
+                        }
+                    }
+
+                    html += `<button onclick="handleReadingMCQSelect('${q.id}', ${oIdx}, '${q.highlightId || ''}')" ${isAnswered ? 'disabled' : ''} 
+                                class="w-full text-left p-3 rounded-lg text-base font-medium transition-all ${btnStyle}">
+                                ${opt}
+                             </button>`;
+                });
+
+                html += `</div>`;
+
+                if (isAnswered) {
+                    const isCorrect = selectedOpt === q.answer;
+                    html += `<div class="mt-3 p-3 rounded-lg text-sm sm:text-base ${isCorrect ? 'bg-green-50 text-green-900 border border-green-200' : 'bg-amber-50 text-amber-900 border border-amber-200'}">
+                                <b>Giải thích:</b> ${q.explanation}
+                             </div>`;
+                }
+
+                html += `</div>`;
+            });
+            html += `</div>`;
+
+            card.innerHTML = html;
+
+            // Trigger highlights if answers already answered
+            setTimeout(() => {
+                p.questions.forEach(q => {
+                    if (userAnswers[q.id] !== undefined && q.highlightId) {
+                        highlightReadingText(q.highlightId);
+                    }
+                });
+            }, 50);
+
+            return card;
+        }
+
+        // Handle MCQ Selection
+        function handleMCQSelect(qId, optionIdx) {
+            userAnswers[qId] = optionIdx;
+            renderQuizContent();
+            updateScore();
+        }
+
+        // Handle Reading MCQ Selection + Highlight Trigger
+        function handleReadingMCQSelect(qId, optionIdx, highlightId) {
+            userAnswers[qId] = optionIdx;
+            renderQuizContent();
+            if (highlightId) {
+                highlightReadingText(highlightId);
+            }
+            updateScore();
+        }
+
+        // Highlight text in Reading Passage
+        function highlightReadingText(hlId) {
+            if (!hlId) return;
+            const el = document.getElementById(hlId);
+            if (el) {
+                el.classList.add('highlight-yellow');
+            }
+        }
+
+        // Handle Text Input Submission
+        function handleFillSubmit(qId) {
+            const inputEl = document.getElementById(`input-${qId}`);
+            if (!inputEl) return;
+            const val = inputEl.value.trim();
+            if (!val) return;
+
+            userAnswers[qId] = val;
+            renderQuizContent();
+            updateScore();
+        }
+
+        // Helper to compare string answers ignoring case/punctuation
+        function checkAnswerText(userVal, correctVal) {
+            if (!userVal) return false;
+            const normUser = userVal.toLowerCase().replace(/[.,?!]/g, '').trim();
+            
+            if (Array.isArray(correctVal)) {
+                return correctVal.some(ans => ans.toLowerCase().replace(/[.,?!]/g, '').trim() === normUser);
+            }
+            return normUser === correctVal.toLowerCase().replace(/[.,?!]/g, '').trim();
+        }
+
+        // Calculate and Update Total Score Display
+        function updateScore() {
+            const test = testsData[currentTestIdx];
+            let total = 0;
+            let correct = 0;
+
+            test.sections.forEach(sec => {
+                if (sec.type === 'mcq' || sec.type === 'fill_text' || sec.type === 'writing') {
+                    sec.questions.forEach(q => {
+                        total++;
+                        const userVal = userAnswers[q.id];
+                        if (userVal !== undefined) {
+                            if (sec.type === 'mcq' && userVal === q.answer) correct++;
+                            if ((sec.type === 'fill_text' || sec.type === 'writing') && checkAnswerText(userVal, q.answer)) correct++;
+                        }
+                    });
+                } else if (sec.type === 'reading') {
+                    sec.passages.forEach(p => {
+                        p.questions.forEach(q => {
+                            total++;
+                            if (userAnswers[q.id] !== undefined && userAnswers[q.id] === q.answer) {
+                                correct++;
+                            }
+                        });
+                    });
+                }
+            });
+
+            document.getElementById('score-display').innerText = `${correct} / ${total}`;
+        }
+    </script>
+</body>
+</html>
